@@ -4,7 +4,12 @@ Core bioinformatics algorithms implemented without BioPython,
 to understand the underlying logic before relying on libraries.
 
 ## Why no BioPython?
-(직접 채우기: 라이브러리에 의존하기 전에 알고리즘 자체를 이해하기 위함, 등)
+Implementing these algorithms manually — FASTA parsing, ORF detection, GC content,
+translation, and sequence comparison — before relying on BioPython was a deliberate
+choice to understand the underlying logic rather than treat it as a black box.
+This foundation supports later, more advanced work (e.g. integrating statistical
+methods like PCA and gradient-based optimization into sequence analysis pipelines),
+and reflects the hands-on approach I'm building toward computational genomics research.
 
 ## Modules
 - **fasta_parser/** — multi-record FASTA 파일 파싱
