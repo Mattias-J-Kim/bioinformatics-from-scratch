@@ -19,6 +19,8 @@ and reflects the hands-on approach I'm building toward computational genomics re
 - **six_frame_translation/** — 정방향/역방향 3-frame씩 총 6-frame 번역
 - **hamming_distance/** — 서열 간 Hamming distance 계산
 - **kmer_analysis/** — k-mer 빈도 계산, 최다빈도 k-mer 탐색, clump finding (최적화 전/후 버전 포함)
+- **origin_of_replication/** — GC-skew based origin-of-replication (ori) candidate detection, Hamming-distance approximate pattern matching
+
 
 ## Usage
 각 모듈 폴더 안에서:
@@ -34,6 +36,7 @@ python <script_name>.py <input_file>
 - [x] six_frame_translation
 - [x] hamming_distance
 - [x] kmer_analysis
+- [x] origin_of_replication
 
 ## Notes
 - `six_frame_translation/`은 자체 `reverse_complement()`를 내부에 갖고 있음 (반복문 버전, `reverse_complement/`의 재귀 버전과 별개 구현). 나중에 하나로 통합할지는 선택 사항.
