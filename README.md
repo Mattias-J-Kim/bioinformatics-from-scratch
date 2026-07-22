@@ -22,7 +22,7 @@ and reflects the hands-on approach I'm building toward computational genomics re
 - **origin_of_replication/** — GC-skew based origin-of-replication (ori) candidate detection
 
 ## Usage
-각 모듈 폴더 안에서:
+Inside each module folder:
 ```bash
 python <script_name>.py <input_file>
 ```
@@ -38,4 +38,4 @@ python <script_name>.py <input_file>
 - [x] origin_of_replication
 
 ## Notes
-- `six_frame_translation/`은 자체 `reverse_complement()`를 내부에 갖고 있음 (반복문 버전, `reverse_complement/`의 재귀 버전과 별개 구현). 나중에 하나로 통합할지는 선택 사항.
+- `six_frame_translation/` has its own internal `reverse_complement()` (iterative version), implemented separately from the recursive version in `reverse_complement/`. Whether to merge them into one implementation later is optional.
