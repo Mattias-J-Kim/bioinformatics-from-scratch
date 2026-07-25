@@ -20,6 +20,7 @@ and reflects the hands-on approach I'm building toward computational genomics re
 - **hamming_distance/** — Hamming distance calculation between sequences, approximate pattern matching
 - **kmer_analysis/** — k-mer frequency counting, most frequent k-mer detection, clump finding (brute-force and optimized versions)
 - **origin_of_replication/** — GC-skew based origin-of-replication (ori) candidate detection
+- **sequence_alignment/** — Global sequence alignment (Needleman-Wunsch style scoring: match/mismatch/gap), built on the Edit Distance DP recurrence
 
 ## Usage
 Inside each module folder:
@@ -36,6 +37,8 @@ python <script_name>.py <input_file>
 - [x] hamming_distance
 - [x] kmer_analysis
 - [x] origin_of_replication
+- [x] sequence_alignment
 
 ## Notes
 - `six_frame_translation/` has its own internal `reverse_complement()` (iterative version), implemented separately from the recursive version in `reverse_complement/`. Whether to merge them into one implementation later is optional.
+- `sequence_alignment/` reuses the Edit Distance table shape; an early draft indexed both sequences with the same loop variable (`seq1[i-1]==seq2[i-1]` instead of `seq2[j-1]`), which didn't surface as a bug until tested with sequences of different lengths.
