@@ -36,6 +36,18 @@ genomics research.
 - **sequence_alignment/** — Global sequence alignment (Needleman–Wunsch style scoring: match/mismatch/gap), built on the Edit Distance DP recurrence
 - **de_bruijn_assembly/** — De Bruijn graph construction and genome assembly via Eulerian path (Hierholzer's algorithm), with analysis of repeat-induced assembly ambiguity
 
+### Pipelines
+
+- **pipelines/** — Workflows combining the modules above into an end-to-end
+  analysis. `pipeline2.py`: GC content profile across a genome using 100 bp
+  non-overlapping windows (`fasta_parser` + `gc_content`).
+
+### Data
+
+- **data/** — Reference sequences used for testing.
+  `NC_001422.1.fna`: bacteriophage phiX174 complete genome (5,386 bp),
+  from NCBI RefSeq.
+
 ## Usage
 
 Each module is a standalone script. Inputs are assigned as plain variables at the
@@ -44,6 +56,11 @@ run:
 
 ```
 python <script_name>.py
+```
+Pipelines are run from the repository root:
+
+```
+python pipelines/pipeline2.py
 ```
 
 ## Related
@@ -76,6 +93,11 @@ documented in
   be recovered from k-mers alone. Correctness is therefore verified structurally
   (output length, and re-decomposition into the input k-mer multiset) rather than
   by string equality.
+- **pipelines/pipeline2.py** discards the final partial window (86 bp of
+  5,386). GC content from a shorter window is estimated from fewer bases and
+  is not comparable to full-length windows on the same axis. phiX174 is
+  circular, so wrapping the final window is the alternative — appropriate for
+  GC-skew style analyses, unnecessary for a descriptive profile.
 
 ## Method
 
@@ -85,4 +107,8 @@ responded with targeted questions and conceptual explanations rather than code.
 
 All implementation code in this repository was written by me. Where the assistant
 identified a defect, it described the failing condition and why it failed; the
-correction was then made by me.
+correction was then made by me. 
+One exception: the `__file__`-based path resolution in
+`pipelines/pipeline2.py` was supplied by the assistant after I could not
+construct the `os.path` calls unaided.
+
