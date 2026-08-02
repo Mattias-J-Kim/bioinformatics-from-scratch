@@ -48,8 +48,7 @@ sys.path.append(os.path.join(BASE_DIR, "gc_content"))
 from fasta_parser import parse_fasta
 from gc_content import gc_content
  
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH = os.path.join(SCRIPT_DIR, "NC_001422.1.fna")
+DATA_PATH = os.path.join(BASE_DIR, "data", "NC_001422.1.fna")
  
 with open(DATA_PATH) as f:
     content = f.read()
