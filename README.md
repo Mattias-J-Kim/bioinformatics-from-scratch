@@ -79,11 +79,8 @@ documented in
 - [ ] Suffix array / BWT-based exact matching
 
 ## Notes
-
-- **six_frame_translation/** has its own internal `reverse_complement()` (iterative
-  version), implemented separately from the recursive version in
-  `reverse_complement/`. Whether to merge them into one implementation later is
-  optional.
+- **reverse_complement/**contains both a recursive and an iterative implementation. The recursive version is the original exercise and is kept for that reason, but it fails with RecursionError past roughly 1,000 bp, so the iterative version is what the rest of the repository uses. The iterative implementation that previously sat inside six_frame_translation/ was merged into this module.
+- **six_frame_translation/** reports the first peptide of each frame rather than the frame's full translation: translate() stops at the first stop codon, so a frame containing more than one ORF only reports the first. Codons absent from the table — incomplete trailing codons, or codons containing N — are skipped silently rather than marked as X.
 - **sequence_alignment/** reuses the Edit Distance table shape; an early draft
   indexed both sequences with the same loop variable (`seq1[i-1]==seq2[i-1]`
   instead of `seq2[j-1]`), which didn't surface as a bug until tested with
