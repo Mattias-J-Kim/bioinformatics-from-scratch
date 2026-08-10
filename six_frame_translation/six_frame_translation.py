@@ -1,3 +1,28 @@
+"""
+Six-frame translation of a DNA sequence.
+
+Translates a sequence in all three forward reading frames and all three
+reverse-strand frames, using the standard genetic code.
+
+Note:
+    translate() stops at the first stop codon in each frame, so what is
+    returned is the first peptide of each frame rather than the frame's
+    full translation. A frame containing several ORFs will only report
+    the first one.
+
+    Codons that are not in the table (incomplete trailing codons, or
+    codons containing ambiguity characters such as N) contribute nothing
+    to the output. They are skipped silently rather than marked as X, so
+    the returned peptide can be shorter than the frame implies.
+"""
+import os
+import sys
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.join(BASE_DIR, "reverse_complement"))
+
+from reverse_complement import reverse_complement
+
 codon_table = {
     "TTT": "F", "TTC": "F", "TTA": "L", "TTG": "L",
     "CTT": "L", "CTC": "L", "CTA": "L", "CTG": "L",
@@ -18,23 +43,13 @@ codon_table = {
 }
 
 
-def reverse_complement(seq):
-    comp = ""
-    for base in seq:
-        if base == "A":
-            comp += "T"
-        elif base == "T":
-            comp += "A"
-        elif base == "C":
-            comp += "G"
-        elif base == "G":
-            comp += "C"
-    return comp[::-1]
-
-
 def translate(seq):
     """
-    주어진 서열을 3개 frame(offset 0,1,2)으로 번역해서 리스트로 반환.
+    Translate a sequence in the three forward reading frames
+    (offsets 0, 1, 2) and return the three peptides as a list.
+
+    Each frame is read until its first stop codon, which is included in
+    the output as "*".
     """
     results = []
     for offset in range(0, 3):
@@ -51,7 +66,12 @@ def translate(seq):
 
 def six_frame_translate(seq):
     """
-    정방향 3-frame + 역상보 3-frame = 총 6개 frame 번역 결과를 반환.
+    Translate all six reading frames: three on the given strand and three
+    on its reverse complement.
+
+    Returns:
+        list of six peptides, forward frames first (offsets 0, 1, 2),
+        then reverse-strand frames in the same offset order.
     """
     rc_seq = reverse_complement(seq)
     forward = translate(seq)
@@ -61,3 +81,4 @@ def six_frame_translate(seq):
 
 if __name__ == "__main__":
     print(six_frame_translate("AGTAGT"))
+      
